@@ -4,14 +4,11 @@ using Newtonsoft.Json;
 using OneTree.Assessment.API.IntegrationTest.Builder;
 using OneTree.Assessment.API.IntegrationTest.Server;
 using OneTree.Assessment.Core.Dtos;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OneTree.Assessment.API.IntegrationTest

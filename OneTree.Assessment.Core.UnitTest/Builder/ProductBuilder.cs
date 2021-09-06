@@ -5,7 +5,6 @@ using OneTree.Assessment.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace OneTree.Assessment.Core.UnitTest.Builder
 {

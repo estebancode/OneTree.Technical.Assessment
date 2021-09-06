@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using OneTree.Assessment.Core.IService;
 using OneTree.Assessment.Core.Service;
 using OneTree.Assessment.Core.UnitTest.Builder;
 using OneTree.Assessment.Domain.Entities;
@@ -10,7 +9,6 @@ using OneTree.Assessment.Domain.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OneTree.Assessment.Core.UnitTest

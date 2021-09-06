@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OneTree.Assessment.Domain;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using System;

@@ -2,9 +2,6 @@
 using Microsoft.WindowsAzure.Storage.Blob;
 using OneTree.Assessment.Domain.Entities;
 using OneTree.Assessment.Domain.IRepositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OneTree.Assessment.Domain.Repositories

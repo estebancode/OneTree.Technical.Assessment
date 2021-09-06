@@ -24,7 +24,7 @@ After cloning the repository:
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }
             },
-            "Technical.Assessment.Api": {
+            "OneTree.Assessment.Api": {
             "commandName": "Project",
             "launchBrowser": true,
             "launchUrl": "swagger",
