@@ -42,7 +42,7 @@ namespace OneTree.Assessment.Core.UnitTest.Builder
                 Name = $"{Guid.NewGuid()}-name",
                 Desciption = $"{Guid.NewGuid()}-description",
                 Price = 43.99,
-                File = null,
+                File = NewFile(),
             };
 
             productDto = new Dtos.Product

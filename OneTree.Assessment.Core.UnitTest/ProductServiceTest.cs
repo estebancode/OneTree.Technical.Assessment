@@ -34,9 +34,15 @@ namespace OneTree.Assessment.Core.UnitTest
         [TestInitialize]
         public void Setup()
         {
+            var dataMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile());
+                cfg.AllowNullCollections = true;
+                cfg.AllowNullDestinationValues = true;
+            });
             blobStorageRepository = Substitute.For<IBlobStorageRepository>();
             Config = Substitute.For<IConfiguration>();
-            mapper = Substitute.For<IMapper>();
+            mapper = dataMapper.CreateMapper();
             productRepository = Substitute.For<IProductRepository>();
             eRepository = Substitute.For<IERepository<Product>>();
             productService = new ProductService(productRepository,mapper,blobStorageRepository,Config);
@@ -48,14 +54,14 @@ namespace OneTree.Assessment.Core.UnitTest
         {
             int counter = 0;
             int expectedResult = 1;
-            productRepository.When(c => c.GetAllAsync()).DoNotCallBase();
+            int expectedValues = 2;
             eRepository.GetAllAsync().Returns(builder.Get_All());
             productRepository.GetAllAsync().Returns(builder.Get_All());
             productRepository.When(c => c.GetAllAsync()).Do(o => counter++);
             IEnumerable<Dtos.Product> products = await productService.GetAllAsync().ConfigureAwait(false);
             Assert.AreEqual(expectedResult, counter);
             Assert.IsTrue(products.Any());
-            Assert.IsTrue(products.Count() == expectedResult);
+            Assert.IsTrue(products.Count() == expectedValues);
         }
 
         [TestMethod]
@@ -74,10 +80,12 @@ namespace OneTree.Assessment.Core.UnitTest
         public async Task Modify_Async()
         {
             int counter = 0;
-            int expectedResult = 2;
+            int expectedResult = 3;
+            productRepository.FindByIdAsync(Arg.Any<Guid>()).Returns(builder.Get());
+            productRepository.When(pr=> pr.FindByIdAsync(Arg.Any<Guid>())).Do(x=> counter++);
             blobStorageRepository.SaveFileAsync(Arg.Any<UploadFile>()).ReturnsForAnyArgs($"https://{Guid.NewGuid()}");
             blobStorageRepository.When(b => b.SaveFileAsync(Arg.Any<UploadFile>())).Do(x => counter++);
-            productRepository.When(c => c.AddAsync(Arg.Any<Product>())).Do(o => counter++);
+            productRepository.When(c => c.UpdateAsync(Arg.Any<Product>())).Do(o => counter++);
             await productService.ModifyAsync(builder.GetToUpdate());
             Assert.AreEqual(expectedResult, counter);
         }
@@ -88,7 +96,7 @@ namespace OneTree.Assessment.Core.UnitTest
             int counter = 0;
             int expectedResult = 2;
             productRepository.FindByIdAsync(Arg.Any<Guid>()).Returns(builder.Get());
-            productRepository.When(c => c.FindByIdAsync(Arg.Any<Product>())).Do(o => counter++);
+            productRepository.When(c => c.FindByIdAsync(Arg.Any<Guid>())).Do(o => counter++);
             productRepository.When(c => c.DeleteAsync(Arg.Any<Product>())).Do(o => counter++);
             await productService.RemoveAsync(builder.Get().Id);
             Assert.AreEqual(expectedResult, counter);
